@@ -49,7 +49,7 @@ namespace COMP2007_S2016_MidTerm_200271124
 
         protected void CancelButton_Click(object sender, EventArgs e)
         {
-            Response.Redirect("~/TodoList.aspx");
+            Response.Redirect("~/Details/TodoList.aspx");
         }
 
         protected void SaveButton_Click(object sender, EventArgs e)
@@ -76,11 +76,11 @@ namespace COMP2007_S2016_MidTerm_200271124
 
                 // add form data to the new student record
                 newTodo.TodoName = TodoNameTextBox.Text;
-                newTodo.TodoNotes = TodoNotesTextBox.Text;
-                //newTodo.Completed = Convert.ToDateTime(EnrollmentDateTextBox.Text);
+                newTodo.TodoNotes = TodoNotesTextBox.Text;          
+                
+                //newTodo.checkBox
 
                 // use LINQ to ADO.NET to add / insert new student into the database
-
                 if (TodoID == 0)
                 {
                     db.Todos.Add(newTodo);
@@ -91,7 +91,7 @@ namespace COMP2007_S2016_MidTerm_200271124
                 db.SaveChanges();
 
                 // Redirect back to the updated students page
-                Response.Redirect("~/TodoList.aspx");
+                Response.Redirect("~/Details/TodoList.aspx");
             }
         }
     }

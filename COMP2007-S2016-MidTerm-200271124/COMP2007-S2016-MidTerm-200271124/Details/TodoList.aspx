@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md-offset-2 col-md-8">
                 <h1>Todo List</h1>
-                <a href="TodoDetails.aspx" class="btn btn-success btn-sm"><i class="fa fa-plus"></i>Add Todos</a>
+                <a href="/Details/TodoDetails.aspx" class="btn btn-success btn-sm"><i class="fa fa-plus"></i>Add Todos</a>
 
                 <div>
                     <label for="PageSizeDropDownList">Records per Page: </label>
@@ -17,9 +17,7 @@
                     </asp:DropDownList>
                 </div>
 
-                <asp:GridView runat="server" CssClass="table table-bordered table-striped table-hover" ID="TodosGridView" AutoGenerateColumns="false"
-                     DataKeyNames="TodoID" OnRowDeleting="TodosGridView_RowDeleting" AllowPaging="true" PageSize="3"
-                    OnPageIndexChanging="TodosGridView_PageIndexChanging" AllowSorting="true" OnSorting="TodosGridView_Sorting" OnRowDataBound="TodosGridView_RowDataBound" PagerStyle-CssClass="pagination-ys">
+                <asp:GridView runat="server" CssClass="table table-bordered table-striped table-hover" ID="TodosGridView" AutoGenerateColumns="false" DataKeyNames="TodoID" OnRowDeleting="TodosGridView_RowDeleting" AllowPaging="true" PageSize="3" OnPageIndexChanging="TodosGridView_PageIndexChanging" AllowSorting="true" OnSorting="TodosGridView_Sorting" OnRowDataBound="TodosGridView_RowDataBound" PagerStyle-CssClass="pagination-ys">
                     <Columns>
                         <asp:BoundField DataField="TodoName" HeaderText="Todo" Visible="true" SortExpression="TodoName" />
                         <asp:BoundField DataField="TodoNotes" HeaderText="Notes" Visible="true" SortExpression="TodoNotes" />
@@ -28,7 +26,7 @@
                                 <asp:CheckBox ID="Completed" runat="server" />
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:HyperLinkField HeaderText="Edit" Text="<i class='fa fa-pencil-square-o fa-lg'></i> Edit" NavigateUrl="~/TodoDetails.aspx.cs" ControlStyle-CssClass="btn btn-primary btn-sm" runat="server" DataNavigateUrlFields="TodoID" DataNavigateUrlFormatString="TodoDetails.aspx?TodoID={0}" />
+                        <asp:HyperLinkField HeaderText="Edit" Text="<i class='fa fa-pencil-square-o fa-lg'></i> Edit" NavigateUrl="~/Details/TodoDetails.aspx.cs" ControlStyle-CssClass="btn btn-primary btn-sm" runat="server" DataNavigateUrlFields="TodoID" DataNavigateUrlFormatString="TodoDetails.aspx?TodoID={0}" />
                         <asp:CommandField  HeaderText="Delete" DeleteText="<i class='fa fa-trash-o fa-lg'></i> Delete" ShowDeleteButton="true" ButtonType="Link" ControlStyle-CssClass="btn btn-danger btn-sm" />
                     </Columns>
                 </asp:GridView>
