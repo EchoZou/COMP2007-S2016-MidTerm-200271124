@@ -29,12 +29,12 @@ namespace COMP2007_S2016_MidTerm_200271124
             // connect to the EF DB
             using (TodoConnection db = new TodoConnection())
             {
-                // populate a student object instance with the StudentID from the URL Parameter
+                // populate the object
                 Todo updatedTodo = (from todo in db.Todos
                                        where todo.TodoID == TodoID
                                        select todo).FirstOrDefault();
 
-                // map the student properties to the form controls
+                //check info
                 if (updatedTodo != null)
                 {
                     TodoNameTextBox.Text = updatedTodo.TodoName;
@@ -47,18 +47,20 @@ namespace COMP2007_S2016_MidTerm_200271124
             }
         }
 
+        //cancel button go back
         protected void CancelButton_Click(object sender, EventArgs e)
         {
             Response.Redirect("~/Details/TodoList.aspx");
         }
 
+        //save button to save and go back
         protected void SaveButton_Click(object sender, EventArgs e)
         {
             // Use EF to connect to the server
             using (TodoConnection db = new TodoConnection())
             {
-                // use the Student model to create a new student object and
-                // save a new record
+                
+                //new record
                 Todo newTodo = new Todo();
 
                 int TodoID = 0;
@@ -68,7 +70,7 @@ namespace COMP2007_S2016_MidTerm_200271124
                     // get the id from the URL
                     TodoID = Convert.ToInt32(Request.QueryString["TodoID"]);
 
-                    // get the current student from EF DB
+                    // get the selected todo from EF DB
                     newTodo = (from todo in db.Todos
                                where todo.TodoID == TodoID
                                select todo).FirstOrDefault();
@@ -80,17 +82,19 @@ namespace COMP2007_S2016_MidTerm_200271124
                 
                 //newTodo.checkBox
 
-                // use LINQ to ADO.NET to add / insert new student into the database
+
+
+                //insert new todo into the database
                 if (TodoID == 0)
                 {
                     db.Todos.Add(newTodo);
                 }
 
 
-                // save our changes - also updates and inserts
+                // save changes
                 db.SaveChanges();
 
-                // Redirect back to the updated students page
+                // Redirect back 
                 Response.Redirect("~/Details/TodoList.aspx");
             }
         }

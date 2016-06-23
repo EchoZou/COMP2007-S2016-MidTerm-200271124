@@ -18,12 +18,12 @@ namespace COMP2007_S2016_MidTerm_200271124
         protected void Page_Load(object sender, EventArgs e)
         {
 
-            // if loading the page for the first time, populate the student grid
+            //populate the grid
             if (!IsPostBack)
             {
                 Session["SortColumn"] = "TodoID"; // default sort column
                 Session["SortDirection"] = "ASC";
-                // Get the student data
+                // Get grid data
                 this.GetTodos();
             }
         }
@@ -37,7 +37,7 @@ namespace COMP2007_S2016_MidTerm_200271124
             {
                 string SortString = Session["SortColumn"].ToString() + " " + Session["SortDirection"].ToString();
 
-                // query the Students Table using EF and LINQ
+                //using EF and LINQ
                 var Todos = (from allTodos in db.Todos
                              select allTodos);
 
@@ -47,27 +47,27 @@ namespace COMP2007_S2016_MidTerm_200271124
             }
         }
 
-       
+       //delete
         protected void TodosGridView_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
             // store which row was clicked
             int selectedRow = e.RowIndex;
 
-            // get the selected StudentID using the Grid's DataKey collection
+            // get the selected ID 
             int TodoID = Convert.ToInt32(TodosGridView.DataKeys[selectedRow].Values["TodoID"]);
 
-            // use EF to find the selected student in the DB and remove it
+            // use EF to find the selected todo in the DB and remove it
             using (TodoConnection db = new TodoConnection())
             {
-                // create object of the Student class and store the query string inside of it
+                // create object deletedTodo
                 Todo deletedTodo = (from todoRecords in db.Todos
                                     where todoRecords.TodoID == TodoID
                                     select todoRecords).FirstOrDefault();
 
-                // remove the selected student from the db
+                // remove from the db
                 db.Todos.Remove(deletedTodo);
 
-                // save my changes back to the database
+                // save changes
                 db.SaveChanges();
 
                 // refresh the grid
@@ -75,7 +75,7 @@ namespace COMP2007_S2016_MidTerm_200271124
             }
         }
 
-        
+        //set page number
         protected void TodosGridView_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             // Set the new page number
@@ -85,6 +85,7 @@ namespace COMP2007_S2016_MidTerm_200271124
             this.GetTodos();
         }
 
+        //get new size
         protected void PageSizeDropDownList_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Set the new Page size
@@ -94,6 +95,8 @@ namespace COMP2007_S2016_MidTerm_200271124
             this.GetTodos();
         }
 
+
+        //sorting
         protected void TodosGridView_Sorting(object sender, GridViewSortEventArgs e)
         {
             // get the column to sorty by
@@ -106,6 +109,7 @@ namespace COMP2007_S2016_MidTerm_200271124
             Session["SortDirection"] = Session["SortDirection"].ToString() == "ASC" ? "DESC" : "ASC";
         }
 
+        //sort symbol
         protected void TodosGridView_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (IsPostBack)
